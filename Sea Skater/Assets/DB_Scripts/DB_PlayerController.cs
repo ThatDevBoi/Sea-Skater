@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DB_PlayerController : MonoBehaviour
 {
+    // This script is no longer needed as the boat GameObject exacutes the new movement mechanic
+
+
     // Array of Transform targets the player will switch back and forwards from
     public Transform[] collums;
 	// Use this for initialization
