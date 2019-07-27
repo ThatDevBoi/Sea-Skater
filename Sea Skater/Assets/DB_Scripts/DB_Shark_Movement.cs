@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DB_BoatMovement : MonoBehaviour
+public class DB_Shark_Movement : MonoBehaviour
 {
     // Variables 
     public float boatMovementSpeed = 6f;
@@ -23,9 +23,8 @@ public class DB_BoatMovement : MonoBehaviour
 	void Start ()
     {
         // Finding the players position
-        player = GameObject.Find("Player").GetComponent<Transform>();
+        player = GameObject.Find("Player").GetComponent<Transform>(); 
         dragDistance = Screen.height * 15 / 100;    // dragDistance is 15% height of the screen
-
 	}
 	
 	// Update is called once per frame
@@ -35,22 +34,23 @@ public class DB_BoatMovement : MonoBehaviour
         BoatMovement();
         SwipToMove();
 
+        // Clamped position so the GameObjects cant go out of bounds
         Vector3 clampedPos = transform.position;
+        // the position will stay between 2 / -2
         clampedPos.x = Mathf.Clamp(clampedPos.x, -2, 2);
         transform.position = clampedPos;
-
 
         #region Stopping Test
         // This Test shows that when the player stop so does the boat. This will work both ways. 
         // Boat dont move player dont move. Player dont move boat dont move it keeps the value of its distance
         // Through the development Phase animations can be placed in action or different gameplay events
-        float TestTimer = 5f;
+        //float TestTimer = 5f;
 
-        TestTimer -= Time.time;
-        if(TestTimer <= 0)
-        {
-            playerMovementSpeed = 0;        
-        }
+        //TestTimer -= Time.time;
+        //if(TestTimer <= 0)
+        //{
+        //    playerMovementSpeed = 0;        
+        //}
         //Debug.Log(TestTimer);
         #endregion
     }
@@ -75,6 +75,7 @@ public class DB_BoatMovement : MonoBehaviour
         //        transform.position = new Vector3(transform.position.x + 2, transform.position.y, gameObject.transform.position.z);
         //}
         #endregion
+
 
         #region New Swip Movement
         if(Input.touchCount == 1)   // Player only touches the screen 1 time
@@ -156,15 +157,25 @@ public class DB_BoatMovement : MonoBehaviour
 
         // Figure out the distance between the boat and the player
         float distance = 9f;
+        // Shows the distance in console
         Debug.Log(distance);
+        // making a distance between Shark and PC
         transform.position = (transform.position - player.position).normalized * distance + player.position;
+        // set the PC position so that it will follow the shark on the Y but is independant on its Z and Y axis
         player.position = new Vector3(gameObject.transform.position.x, player.position.y, player.position.z);
+
+        // When the PC Jumps
         if (player.position.y > .4f)
         {
+            // We need to make sure the shark stays down so that the distance set does not try and correct the position change
+            // So we are preventing the shark from moving up
             transform.position = new Vector3(transform.position.x, .4f, transform.position.z);
         }
+
+        // If the player scale changes
         if(player.localScale.y < 1)
         {
+            // We stop the shark from going under the playable scene
             transform.position = new Vector3(transform.position.x, .4f, transform.position.z);
         }
 

@@ -4,31 +4,54 @@ using UnityEngine;
 
 public class DB_PlayerController : MonoBehaviour
 {
-    // This script is no longer needed as the boat GameObject exacutes the new movement mechanic
-
-
     // Array of Transform targets the player will switch back and forwards from
-    public Transform[] collums;
+    //  public Transform[] collums;
+
+    // We need to make the Camera Follow the Player Character Model
+    // It needs to be the main focus and the shark ahead will be a static GO
+    // Camera Variables
+    public GameObject GO_camera;
+    public Vector3 offset;
+    private Vector3 velocity; 
+    public Transform target;
+    public float smoothTime = .5f;
+
+
 	// Use this for initialization
 	void Start ()
     {
-		
+        GO_camera = GameObject.FindGameObjectWithTag("MainCamera");
+        target = this.gameObject.GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        // Updated Per Frame so the camera position knows where its gonna be
+        CameraFollow();
+        #region Tester Code [Not Relevant Now]
         // this is just a simple set up and will be changed later
         // When the correct input is pressed for the chosen keys
         // The players position will changed to the Transform component position in the array which i have manualy assigned
-        if (Input.GetKeyDown(KeyCode.Q))
-            gameObject.transform.position = collums[0].position;
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //    gameObject.transform.position = collums[0].position;
 
-        if(Input.GetKeyDown(KeyCode.W))
-            gameObject.transform.position = collums[1].position;
+        //if(Input.GetKeyDown(KeyCode.W))
+        //    gameObject.transform.position = collums[1].position;
 
 
-        if (Input.GetKeyDown(KeyCode.E))
-            gameObject.transform.position = collums[2].position;
+        //if (Input.GetKeyDown(KeyCode.E))
+        //    gameObject.transform.position = collums[2].position;
+        #endregion
+    }
+
+    void CameraFollow()
+    {
+        // Cameras position will be aimed at the target Transform and whatever offset position is set in IDE
+        Vector3 newPosition = target.position + offset;
+        // Where the camera will be each from
+        // Using SmoothDamp to allow for more calm and slow effect (Move slow behind the character)
+        GO_camera.transform.position = Vector3.SmoothDamp(GO_camera.transform.position, newPosition, ref velocity, smoothTime);
+
     }
 }
