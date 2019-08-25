@@ -6,7 +6,8 @@ public class DB_Platform_Manager : MonoBehaviour
 {
     // platform array
     public GameObject[] platformPrefabs;
-    public int zedOffset;
+    public float zedOffset;
+    public float yPlatPosition = -4f;
 	// Use this for initialization
 	public void Start ()
     {
@@ -14,17 +15,18 @@ public class DB_Platform_Manager : MonoBehaviour
 		for(int i = 0; i < platformPrefabs.Length; i++)
         {
             // spawn the array on start
-            Instantiate(platformPrefabs[i], new Vector3(0, -1, i * 29), Quaternion.Euler(0, 0, 0));
+            Instantiate(platformPrefabs[i], new Vector3(0, yPlatPosition, i * 55.35f), Quaternion.Euler(0, 0, 0));
             // how far forward the different GOS spawn 
-            zedOffset += 29;
+            zedOffset += 55.35f;
         }
 	}
-	
+
     // Void that moves the old platform forward
     public void RecyclePlatform(GameObject platform)
     {
         // move platform position forward on Z axis
-        platform.transform.position = new Vector3(0, -1, zedOffset);
-        zedOffset += 29;
+        platform.transform.position = new Vector3(0, yPlatPosition, zedOffset);
+        zedOffset += 55.35f;
+        
     }
 }
