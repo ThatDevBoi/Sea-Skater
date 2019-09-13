@@ -9,3 +9,8 @@ I have been doing a lot of Low Poly 3D modelling for my game i decided while awa
 
 <a href="https://imgflip.com/gif/3abfyx"><img src="https://i.imgflip.com/3abfyx.gif" title="made at imgflip.com"/></a>
 <a href="https://imgflip.com/gif/3abg8i"><img src="https://i.imgflip.com/3abg8i.gif" title="made at imgflip.com"/></a>
+
+New Swimming Animation
+
+<a href="https://imgflip.com/gif/3ai596"><img src="https://i.imgflip.com/3ai596.gif" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/3ai5bs"><img src="https://i.imgflip.com/3ai5bs.gif" title="made at imgflip.com"/></a>
